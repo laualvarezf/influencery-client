@@ -48,13 +48,19 @@ const InfluencerSearch = () => {
         {!influencers && <Loader />}
         <div>
           {influencers?.filter((inf) => {
-            if (inf?.handle.toLowerCase().includes(searchString.toLowerCase())) {
+            if (inf?.platform?.name.toLowerCase().includes(platformString.toLowerCase()) && searchString == " ") {
               return inf
             }
-            if (inf?.platform?.name.toLowerCase().includes(searchString.toLowerCase())) {
+            else if (platformString == "all" && searchString == "") {
               return inf
             }
-            if (inf?.tags.map((tag) => tag.name).includes(searchString.toLowerCase())) {
+            else if (inf?.handle.toLowerCase().includes(searchString.toLowerCase())) {
+              return inf
+            }
+            else if (inf?.platform?.name.toLowerCase().includes(searchString.toLowerCase())) {
+              return inf
+            }
+            else if (inf?.tags.map((tag) => tag.name).includes(searchString.toLowerCase())) {
               return inf
             }
           }
@@ -63,6 +69,7 @@ const InfluencerSearch = () => {
           ))}
         </div>
       </SearchContainer>
+
     </div>
   );
 };
